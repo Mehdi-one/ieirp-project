@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEIRP - Ifrane Environmental Incident Reporting Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-leaf"></i>
+                <span>IEIRP</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#report" class="nav-link">Report Incident</a></li>
+                <li><a href="#incidents" class="nav-link">My Incidents</a></li>
+                <li><a href="#dashboard" class="nav-link dashboard-link" style="display: none;">Dashboard</a></li>
+                <li><a href="#admin" class="nav-link admin-link" style="display: none;">Admin</a></li>
+                <li><a href="#" class="nav-link logout-link" style="display: none;">Logout</a></li>
+                <li><a href="#login" class="nav-link login-link">Login</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Login/Register Page -->
+        <section id="login" class="page-section active">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <i class="fas fa-leaf"></i>
+                        <h2>IEIRP Platform</h2>
+                        <p>Ifrane Environmental Incident Reporting</p>
+                    </div>
+                    
+                    <!-- Login Form -->
+                    <div id="loginForm" class="auth-form">
+                        <h3>Login</h3>
+                        <form id="loginFormElement">
+                            <div class="form-group">
+                                <label for="loginEmail">Email</label>
+                                <input type="email" id="loginEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="loginPassword">Password</label>
+                                <input type="password" id="loginPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                        <p class="auth-switch">
+                            Don't have an account? <a href="#" id="showRegister">Register</a>
+                        </p>
+                    </div>
+                    
+                    <!-- Register Form -->
+                    <div id="registerForm" class="auth-form" style="display: none;">
+                        <h3>Register</h3>
+                        <form id="registerFormElement">
+                            <div class="form-group">
+                                <label for="registerName">Full Name</label>
+                                <input type="text" id="registerName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="registerEmail">Email</label>
+                                <input type="email" id="registerEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="registerPassword">Password</label>
+                                <input type="password" id="registerPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </form>
+                        <p class="auth-switch">
+                            Already have an account? <a href="#" id="showLogin">Login</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Home Page -->
+        <section id="home" class="page-section">
+            <div class="container">
+                <div class="hero">
+                    <h1>Welcome to IEIRP</h1>
+                    <p>Ifrane Environmental Incident Reporting Platform</p>
+                    <p>Report environmental incidents and help keep our community safe and clean.</p>
+                    <button class="btn btn-primary" onclick="showPage('report')">Report an Incident</button>
+                </div>
+                
+                <div class="features">
+                    <div class="feature-card">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Report Incidents</h3>
+                        <p>Quickly report environmental incidents in your area</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Track Status</h3>
+                        <p>Monitor the status of your reported incidents</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Stay Informed</h3>
+                        <p>Get updates on incident resolutions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Report Incident Page -->
+        <section id="report" class="page-section">
+            <div class="container">
+                <h2>Report Environmental Incident</h2>
+                
+                <form id="incidentForm" class="incident-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="category">Category *</label>
+                            <select id="category" required>
+                                <option value="">Select a category</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location *</label>
+                            <input type="text" id="location" placeholder="Enter location" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" rows="4" placeholder="Describe the incident in detail"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="latitude">Latitude (Optional)</label>
+                            <input type="number" id="latitude" step="0.000001" placeholder="33.533331">
+                        </div>
+                        <div class="form-group">
+                            <label for="longitude">Longitude (Optional)</label>
+                            <input type="number" id="longitude" step="0.000001" placeholder="-5.166667">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="imageUpload">Upload Image (Optional)</label>
+                        <input type="file" id="imageUpload" accept="image/*">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit Report</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- My Incidents Page -->
+        <section id="incidents" class="page-section">
+            <div class="container">
+                <h2>My Reported Incidents</h2>
+                <div id="incidentsList" class="incidents-grid">
+                    <!-- Incidents will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Authority Dashboard -->
+        <section id="dashboard" class="page-section">
+            <div class="container">
+                <h2>Authority Dashboard</h2>
+                
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3>Total Incidents</h3>
+                        <div class="stat-number" id="totalIncidents">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Reported</h3>
+                        <div class="stat-number" id="reportedIncidents">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>In Progress</h3>
+                        <div class="stat-number" id="inProgressIncidents">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Resolved</h3>
+                        <div class="stat-number" id="resolvedIncidents">0</div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-filters">
+                    <h3>Filter Incidents</h3>
+                    <div class="filter-row">
+                        <select id="filterStatus">
+                            <option value="">All Status</option>
+                            <option value="REPORTED">Reported</option>
+                            <option value="UNDER_REVIEW">Under Review</option>
+                            <option value="IN_PROGRESS">In Progress</option>
+                            <option value="RESOLVED">Resolved</option>
+                            <option value="REJECTED">Rejected</option>
+                        </select>
+                        <select id="filterCategory">
+                            <option value="">All Categories</option>
+                        </select>
+                        <button class="btn btn-secondary" onclick="loadDashboardIncidents()">Apply Filters</button>
+                    </div>
+                </div>
+                
+                <div id="dashboardIncidents" class="incidents-grid">
+                    <!-- Incidents will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Panel -->
+        <section id="admin" class="page-section">
+            <div class="container">
+                <h2>Admin Panel</h2>
+                
+                <div class="admin-tabs">
+                    <button class="tab-btn active" onclick="showAdminTab('users')">Users</button>
+                    <button class="tab-btn" onclick="showAdminTab('categories')">Categories</button>
+                </div>
+                
+                <!-- Users Tab -->
+                <div id="usersTab" class="admin-tab active">
+                    <h3>User Management</h3>
+                    <div id="usersList" class="admin-table">
+                        <!-- Users will be loaded here -->
+                    </div>
+                </div>
+                
+                <!-- Categories Tab -->
+                <div id="categoriesTab" class="admin-tab">
+                    <h3>Category Management</h3>
+                    <button class="btn btn-primary" onclick="showAddCategoryForm()">Add New Category</button>
+                    <div id="categoriesList" class="admin-table">
+                        <!-- Categories will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
