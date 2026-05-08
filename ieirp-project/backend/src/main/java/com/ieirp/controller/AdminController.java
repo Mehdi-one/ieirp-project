@@ -57,12 +57,12 @@ public class AdminController {
     @PostMapping("/users/{id}/role")
     public ResponseEntity<?> assignRole(@PathVariable Long id, @RequestBody Map<String, String> roleRequest) {
         try {
-            User user = userService.getUserById(id);
             String roleStr = roleRequest.get("role");
+            if (roleStr == null || roleStr.isBlank()) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Role is required"));
+            }
             User.Role role = User.Role.valueOf(roleStr.toUpperCase());
-            
-            user.setRole(role);
-            User updatedUser = userService.updateUser(id, user);
+            User updatedUser = userService.updateUserRole(id, role);
             
             return ResponseEntity.ok(updatedUser);
         } catch (Exception e) {

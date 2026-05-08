@@ -2,6 +2,7 @@ package com.ieirp.model;
  
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
  
@@ -21,9 +22,13 @@ public class Incident {
     private Category category;
  
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     @JsonIgnoreProperties({"password", "incidents", "hibernateLazyInitializer", "handler"})
     private User user;
+
+    @Email(message = "Reporter email should be valid")
+    @Column(name = "reporter_email")
+    private String reporterEmail;
  
     @NotBlank(message = "Location is required")
     @Size(max = 255, message = "Location must not exceed 255 characters")
@@ -33,7 +38,8 @@ public class Incident {
     @Column(columnDefinition = "TEXT")
     private String description;
  
-    @Column(name = "image_url")
+    @Lob
+    @Column(name = "image_url", columnDefinition = "LONGTEXT")
     private String imageUrl;
  
     @Enumerated(EnumType.STRING)
@@ -54,6 +60,12 @@ public class Incident {
  
     @Column(name = "resolved_at")
     private LocalDateTime resolvedAt;
+
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean archived = false;
+
+    @Column(name = "archived_at")
+    private LocalDateTime archivedAt;
  
     public enum IncidentStatus {
         REPORTED,
@@ -91,6 +103,8 @@ public class Incident {
     public void setCategory(Category category) { this.category = category; }
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
+    public String getReporterEmail() { return reporterEmail; }
+    public void setReporterEmail(String reporterEmail) { this.reporterEmail = reporterEmail; }
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
     public String getDescription() { return description; }
@@ -109,4 +123,8 @@ public class Incident {
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
     public LocalDateTime getResolvedAt() { return resolvedAt; }
     public void setResolvedAt(LocalDateTime resolvedAt) { this.resolvedAt = resolvedAt; }
+    public boolean isArchived() { return archived; }
+    public void setArchived(boolean archived) { this.archived = archived; }
+    public LocalDateTime getArchivedAt() { return archivedAt; }
+    public void setArchivedAt(LocalDateTime archivedAt) { this.archivedAt = archivedAt; }
 }

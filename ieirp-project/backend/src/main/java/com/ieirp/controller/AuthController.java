@@ -45,8 +45,8 @@ public class AuthController {
             if (password == null || password.isBlank()) {
                 return ResponseEntity.badRequest().body(Map.of("error", "Password is required"));
             }
-            if (password.length() < 6) {
-                return ResponseEntity.badRequest().body(Map.of("error", "Password must be at least 6 characters"));
+            if (password.length() < 8) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Password must be at least 8 characters"));
             }
  
             // Build User manually — no Jackson binding issues
