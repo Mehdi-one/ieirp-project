@@ -1,192 +1,226 @@
-# MEHDI HAJJARI - Personal Website
+# IEIRP - Ifrane Environmental Incident Reporting Platform
 
-A beautiful, modern, and responsive personal website built with HTML5, CSS3, and vanilla JavaScript. This website showcases my skills, projects, and provides a way for potential clients and employers to get in touch.
+IEIRP is a full-stack environmental incident reporting platform designed for the Ifrane region. It allows visitors and citizens to report environmental incidents, while authority users and administrators can review, map, update, resolve, and archive those reports through a secure role-based workflow.
 
-## 🚀 Features
+This repository contains the final implementation for a university software engineering project.
 
-- **Modern Design**: Clean, professional design with smooth animations and transitions
-- **Responsive Layout**: Fully responsive design that works perfectly on all devices
-- **Interactive Elements**: Hover effects, smooth scrolling, and micro-interactions
-- **Contact Form**: Functional contact form with validation and feedback
-- **Performance Optimized**: Fast loading times with optimized assets
-- **SEO Friendly**: Semantic HTML5 structure for better search engine optimization
-- **Accessibility**: Built with accessibility best practices in mind
+## Project Overview
 
-## 📁 Project Structure
+Environmental incidents in a city or region are often reported through informal channels such as phone calls, social media, or word of mouth. This can make response coordination slower and less reliable.
 
-```
+IEIRP solves this by centralizing reports in one platform. Each incident can include a category, location, description, coordinates, image evidence, status, reporter information, and archive state. Authorities can then manage incidents from a dashboard with maps, charts, filters, and status updates.
+
+## Main Features
+
+- Public landing page for visitors
+- Public emergency incident reporting without login
+- Reporter email collection for public reports
+- User registration and login
+- JWT authentication
+- Role-based access control for Citizen, Authority, and Admin users
+- Citizen "My Incidents" page
+- Incident detail page with image, map, status, reporter, and coordinates
+- Image preview before report submission
+- Success screen after public report submission
+- Authority dashboard with statistics cards
+- Chart.js status chart
+- Leaflet.js map using incident latitude and longitude
+- Search and filter incidents by status, category, and archive state
+- Incident status workflow: Reported, Under Review, In Progress, Resolved, Rejected
+- Archive and restore workflow for resolved incidents
+- Admin panel for users, roles, and categories
+- MySQL database persistence
+- Seed data with default users, categories, and realistic Ifrane-area incidents
+
+## Technology Stack
+
+| Layer | Technologies |
+| --- | --- |
+| Backend | Java, Spring Boot, Spring Web |
+| Security | Spring Security, JWT, BCrypt |
+| Database | MySQL, Spring Data JPA, Hibernate |
+| Frontend | HTML, CSS, Vanilla JavaScript |
+| Maps | Leaflet.js, OpenStreetMap |
+| Charts | Chart.js |
+| Build Tool | Apache Maven |
+
+## Repository Structure
+
+```text
 personal-website/
-├── index.html          # Main HTML file
-├── styles.css          # Complete CSS styling
-├── script.js           # JavaScript functionality
-└── README.md           # Project documentation
++-- README.md
++-- ieirp-project/
+    +-- backend/
+    |   +-- pom.xml
+    |   +-- src/main/
+    |       +-- java/com/ieirp/
+    |       |   +-- config/
+    |       |   +-- controller/
+    |       |   +-- model/
+    |       |   +-- repository/
+    |       |   +-- security/
+    |       |   +-- service/
+    |       |   +-- IeirpApplication.java
+    |       +-- resources/
+    |           +-- application.properties
+    +-- frontend/
+        +-- index.html
+        +-- styles.css
+        +-- script.js
 ```
 
-## 🛠️ Technologies Used
+Note: The frontend is implemented as a simple single-page application. Pages such as Home, Report Incident, My Incidents, Dashboard, Admin, and Incident Detail are sections inside `frontend/index.html` and are controlled by `frontend/script.js`.
 
-- **HTML5**: Semantic markup and modern HTML features
-- **CSS3**: Modern CSS with Flexbox, Grid, and animations
-- **JavaScript (ES6+)**: Modern JavaScript with no external dependencies
-- **Google Fonts**: Inter font family for typography
-- **Font Awesome**: Icon library for social links and UI elements
+## Demo Credentials
 
-## 🎨 Design Features
+| Role | Email | Password |
+| --- | --- | --- |
+| Admin | `admin@ieirp.com` | `admin123` |
+| Authority | `authority@ieirp.com` | `password123` |
+| Citizen | `citizen@ieirp.com` | `password123` |
 
-### Color Scheme
-- Primary: Indigo (#4F46E5)
-- Secondary: Emerald (#10B981)
-- Accent: Amber (#F59E0B)
-- Text: Gray scale for optimal readability
+If the citizen account does not exist in your database, you can register a new citizen from the frontend.
 
-### Typography
-- Font: Inter (Google Fonts)
-- Clean, modern, and highly readable
-- Responsive font sizes for all screen sizes
+## Prerequisites
 
-### Layout Components
-- **Navigation**: Fixed header with smooth scroll to sections
-- **Hero Section**: Eye-catching introduction with call-to-action
-- **About Section**: Personal information and background
-- **Skills Section**: Categorized technical skills display
-- **Projects Section**: Portfolio showcase with project cards
-- **Contact Section**: Contact form and information
-- **Footer**: Social links and copyright
+- Java 17 or newer
+- Apache Maven
+- MySQL 8 or compatible
+- A browser
+- Live Server or any static file server for the frontend
 
-## 📱 Responsive Design
+## Database Setup
 
-The website is fully responsive and optimized for:
-- Desktop (1200px+)
-- Tablet (768px - 1199px)
-- Mobile (320px - 767px)
+Create the database:
 
-## ✨ Interactive Features
-
-### Navigation
-- Smooth scrolling between sections
-- Active state indicator based on scroll position
-- Mobile hamburger menu with animations
-- Sticky navigation with backdrop blur
-
-### Animations
-- Fade-in animations on scroll
-- Typing effect for hero title
-- Parallax scrolling for hero section
-- 3D tilt effects on project cards
-- Smooth hover transitions
-
-### Form Handling
-- Client-side validation
-- Email format validation
-- Success/error notifications
-- Loading states
-
-## 🚀 Getting Started
-
-### Prerequisites
-- A modern web browser (Chrome, Firefox, Safari, Edge)
-- No additional dependencies required
-
-### Installation
-1. Clone or download the project files
-2. Open `index.html` in your web browser
-3. That's it! The website is ready to use
-
-### Local Development
-If you want to run the website locally with a simple server:
-
-```bash
-# Using Python 3
-python -m http.server 8000
-
-# Using Node.js (if installed)
-npx serve .
-
-# Using PHP (if installed)
-php -S localhost:8000
+```sql
+CREATE DATABASE ieirp;
 ```
 
-Then open `http://localhost:8000` in your browser.
+Then update the database credentials in:
 
-## 📝 Customization
+```text
+ieirp-project/backend/src/main/resources/application.properties
+```
 
-### Personal Information
-Update the following in `index.html`:
-- Your name in the hero section
-- Email address in contact section
-- Social media links
-- Project information
-- Skills and technologies
+Example:
 
-### Styling
-Modify `styles.css` to customize:
-- Color scheme (CSS variables at the top)
-- Typography
-- Layout spacing
-- Animation timings
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/ieirp?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+spring.datasource.username=YOUR_MYSQL_USERNAME
+spring.datasource.password=YOUR_MYSQL_PASSWORD
+```
 
-### Content
-Edit `index.html` to update:
-- About section content
-- Project descriptions
-- Skills categories
-- Contact information
+## Running the Backend
 
-## 🌐 Deployment
+From the repository root:
 
-### Static Hosting
-This website can be deployed to any static hosting service:
-- Netlify
-- Vercel
-- GitHub Pages
-- Firebase Hosting
-- Surge.sh
+```powershell
+cd ieirp-project/backend
+mvn spring-boot:run
+```
 
-### Deployment Steps
-1. Upload all files to your hosting provider
-2. Ensure the file structure is maintained
-3. Update any domain-specific links if needed
+The backend runs on:
 
-## 🔧 Browser Support
+```text
+http://localhost:8080
+```
 
-- Chrome 60+
-- Firefox 55+
-- Safari 12+
-- Edge 79+
+Quick check:
 
-## 📊 Performance
+```powershell
+Invoke-RestMethod http://localhost:8080/api/categories
+```
 
-- **First Contentful Paint**: < 1.5s
-- **Largest Contentful Paint**: < 2.5s
-- **Cumulative Layout Shift**: < 0.1
-- **First Input Delay**: < 100ms
+## Running the Frontend
 
-## 🤝 Contributing
+Option 1: Use VS Code Live Server and open:
 
-Feel free to fork this project and customize it for your own use. If you find any bugs or have suggestions for improvements:
+```text
+http://127.0.0.1:5500/ieirp-project/frontend/
+```
 
-1. Create an issue describing the problem
-2. Fork the repository
-3. Create a feature branch
-4. Make your changes
-5. Submit a pull request
+Option 2: Use any static server from the frontend folder:
 
-## 📄 License
+```powershell
+cd ieirp-project/frontend
+python -m http.server 8081
+```
 
-This project is open source and available under the [MIT License](LICENSE).
+Then open:
 
-## 📞 Contact
+```text
+http://localhost:8081
+```
 
-- **Email**: contact@mehdihajjari.com
-- **Website**: https://mehdihajjari.com
-- **GitHub**: [Your GitHub Profile]
-- **LinkedIn**: [Your LinkedIn Profile]
+## API Summary
 
-## 🙏 Acknowledgments
+Authentication:
 
-- Google Fonts for the Inter font family
-- Font Awesome for the icon library
-- The open-source community for inspiration and best practices
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/auth/me`
 
----
+Incidents:
 
-**Built with ❤️ by MEHDI HAJJARI**
+- `POST /api/incidents`
+- `POST /api/incidents/public`
+- `GET /api/incidents/my`
+- `GET /api/incidents/filter`
+- `GET /api/incidents/stats`
+- `GET /api/incidents/{id}`
+- `PUT /api/incidents/{id}/status`
+- `PUT /api/incidents/{id}/archive`
+- `PUT /api/incidents/{id}/unarchive`
+
+Categories:
+
+- `GET /api/categories`
+- `POST /api/categories`
+- `DELETE /api/categories/{id}`
+
+Admin:
+
+- `GET /api/admin/users`
+- `POST /api/admin/users/{id}/role`
+- `DELETE /api/admin/users/{id}`
+
+## Role Permissions
+
+| Feature | Visitor | Citizen | Authority | Admin |
+| --- | --- | --- | --- | --- |
+| View landing page | Yes | Yes | Yes | Yes |
+| Submit public report | Yes | Yes | Yes | Yes |
+| Register and login | Yes | Yes | Yes | Yes |
+| View own incidents | No | Yes | Yes | Yes |
+| View authority dashboard | No | No | Yes | Yes |
+| Update incident status | No | No | Yes | Yes |
+| Resolve/archive incidents | No | No | Yes | Yes |
+| Manage users and roles | No | No | No | Yes |
+| Manage categories | No | No | No | Yes |
+
+## Demo Flow
+
+1. Open the landing page.
+2. Submit a public incident report with category, location, coordinates, description, email, and image.
+3. Show the success screen.
+4. Log in as an authority user.
+5. Open the dashboard and show statistics, chart, filters, search, and map.
+6. Open an incident detail page.
+7. Update the status and resolve an incident.
+8. Archive a resolved incident and toggle archived incidents.
+9. Log in as admin and show user role management and categories.
+
+## Team
+
+| Member | Contribution |
+| --- | --- |
+| Mehdi Hajjari | Led the full-stack implementation, backend APIs, database integration, authentication, role-based access control, frontend integration, dashboard workflows, and debugging. |
+| Yassir El Gorfty El Qasemy | Supported frontend review, usability feedback, testing, report organization, and final demo preparation. |
+
+## Notes
+
+- The project is designed for a university demonstration and local execution.
+- `DataInitializer.java` seeds default users, categories, and demo incidents.
+- The backend API is expected at `http://localhost:8080/api`.
+- The frontend is intentionally built with plain HTML, CSS, and JavaScript to keep the project simple and easy to explain.
